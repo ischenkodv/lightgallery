@@ -1,0 +1,5 @@
++ Fix IE9 bug - overlay disappear when hovering over it.
+In IE7 image title in the bottom fells out the container.
+Fix the "Real size" and "Fit screen" options, sometimes they work not correctly (for IE).
+Add option, which allows to preload all images
+Add option to change opacity and color of overlay

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>LightGallery Demo</title>
+
+	<link href="reset-min.css" type="text/css" media="screen" rel="stylesheet" />
+	<link href="layout.css" type="text/css" media="screen" rel="stylesheet" />
+
+	<link href="../lightgallery/skins/default/style.css" type="text/css" media="screen" rel="stylesheet" />
+	<script src="../lightgallery/lightgallery.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	lightgallery.init();
+	
+	var AJAX = (function(){
+
+	  var req = window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest();
+
+	  return {
+
+		get : function(url, callback, context){
+		  req.open('GET', url);
+		  req.onreadystatechange = function() {
+		if(req.readyState == 4){
+			callback.call(context || window, req);
+		}
+		  };
+		  req.send(null);
+		}
+
+	  }
+
+	})();
+
+	var someObj = {a : 'test'};
+
+	function loadImages() {
+	  AJAX.get('load.html', function(req){
+		document.getElementById("moreImages").innerHTML += req.responseText;
+		document.getElementById("load_new").style.display = 'none';
+		
+		lightgallery.init();
+	  }, someObj);
+	}
+	</script>
+
+</head>
+<body>
+
+	<div id="page">
+
+		<div id="hd">
+			<h2>Demo of the LightGallery script</h2>
+			<p>
+				LightGallery is a JavaScript image viewer that shows images above web page and has ability to show both single images and galleries using slide and fade effects. It is very small (8K - packed version, 9,5 - minified) yet powerfull and does not depend on any other libraries. It is tested in all A-grade browsers: IE 6/7, Firefox 2/3, Safari 3, Opera 9.5+.
+			</p>
+		</div>
+
+		<div id="bd">
+
+			<div class="gallery">
+
+				<h3>Single images</h3>
+
+				<a href="001.jpg" rel="lightgallery" title="Leaves after rain"><img src="001_t.jpg" alt="Leaves after rain" title="Leaves after rain" /></a>
+				<a href="002.jpg" rel="lightgallery" title="Pink flowers"><img src="002_t.jpg" alt="Pink flowers" title="Pink flowers" /></a>
+				<a href="003.jpg" rel="lightgallery" title="Butifull island"><img src="003_t.jpg" alt="Butifull island" title="Butifull island" /></a>
+				<a href="004.jpg" rel="lightgallery" title="Wildflowers"><img src="004_t.jpg" alt="Wildflowers" title="Wildflowers" /></a>
+			</div>
+			<br/>
+
+			<div class="gallery">
+
+				<h3>Gallery</h3>
+
+				<a href="001.jpg" rel="lightgallery[flowers]" title="Leaves after rain"><img src="001_t.jpg" alt="Leaves after rain" title="Leaves after rain" /></a>
+				<a href="002.jpg" rel="lightgallery[flowers]" title="Pink flowers"><img src="002_t.jpg" alt="Pink flowers" title="Pink flowers" /></a>
+				<a href="003.jpg" rel="lightgallery[flowers]" title="Butifull island"><img src="003_t.jpg" alt="Butifull island" title="Butifull island" /></a>
+				<a href="004.jpg" rel="lightgallery[flowers]" title="Wildflowers"><img src="004_t.jpg" alt="Wildflowers" title="Wildflowers" /></a>
+			</div>
+
+			<p id="load_new" >
+				Click on the &quot;Load new images&quot; button to test AJAX functionality:
+				<input type="button" name="load_new" value="Load new images" onclick="loadImages()" />
+			</p>
+
+			<div id="moreImages" class="gallery"></div>
+
+			<p>
+				<a href="http://www.jstoolbox.com/projects/lightgallery">LightGallery Home</a><br/>
+				<a href="http://code.google.com/p/lightgallery/downloads/list">Download</a><br/>
+			</p>
+
+		</div>
+
+		<div id="ft"></div>
+
+	</div>
+
+</body>
+</html>

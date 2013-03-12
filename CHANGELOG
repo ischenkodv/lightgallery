@@ -1,0 +1,50 @@
+
+LightGallery changelog:
+
+version 1.4 beta 2
+=================================================
+1) Fixed options processing.
+
+version 1.4 beta
+=================================================
+1) Options "speed" and "framesNumber" replaced by "duration". If you specify
+duration equals to 1000 animation will last one second.
+2) Option "enableZoom" set to false by default.
+3) Animation library replaced to new one. The requestAnimationFrame function used to draw animation instead of setInterval.
+
+version 1.3 (12.01.2010)
+=================================================
+1) Speed improvements, especially for IE
+2) Fixed animate options
+3) Miscellaneous bugfixes
+4) Added support for onDomReady event
+
+version 1.2beta (2.02.2009):
+=================================================
+1) Fixed "full size button" behaviour
+2) Added options overlayColor, overlayOpacity, showOverlay, zoomStep, fullSize
+4) Fixed bug, when container padding was wrongly calculated
+3) Fixed bug with size detection
+4) Reduced size
+
+version 1.1 (26.05.2008):
+=================================================
+1) Ability to add language packs, now Russion pack is available.
+2) Added options: animate, speed etc. See full list in README.
+3) New alias option - ability to change "rel" attribute from "lightgallery" to anything else.
+4) Keyboard support introduced.
+5) Bug fixes
+
+
+
+version 1.0.1:
+=================================================
+1) Fixed scroll position bug - gallery had wrong position when scroll bars position does not equal to 0.
+2) Added images preload while user browse through gallery (except opera because of images.onload bug).
+3) Minimal width of the container is set to 300 pixels.
+
+
+
+version 1.0:
+=================================================
+Initial project setup

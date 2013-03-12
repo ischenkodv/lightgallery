@@ -1,0 +1,99 @@
+==============================================================================
+                       LightGallery - Image gallery
+==============================================================================
+
+NAME
+	LightGallery v1.1
+
+
+AUTHOR
+	Dmitri Ischenko: ischenkodv@gmail.com
+
+
+WEBSITE
+	http://www.jstoolbox.com/projects/lightgallery/
+
+
+DESCRIPTION
+LightGallery is a JavaScript image viewer similar to popular LightBox. It has the ability to show both single images and galleries using slide and fade effects. It is very small yet powerfull and does not depend on any other libraries (as opposed to LightBox which uses prototype.js and scriptaculous).
+
+===========================
+INSTALLATION INSTRUCTIONS
+===========================
+
+To insert LightGallery in your web page:
+1) add the lightgallery.js:
+<script src="lightgallery/lightgallery.min.js" type="text/javascript"></script>
+
+NOTE: you can choose between 2 scripts - normal (lightgallery.js), minified (lightgallery.min.js). lightgallery.js should be used only for development purposes. In production environement use minified version.
+
+2) If you need language packs, add it like this (example shows addition of russian language pack with UTF-8 encoding):
+<script src="lightgallery/lang/ru_utf8.js" type="text/javascript"></script>
+
+3) Call the lightgallery.init() function:
+<script type="text/javascript">
+lightgallery.init();
+</script>
+
+
+You can also use different options:
+lightgallery.init({
+	enableZoom:false,
+	duration: 500,
+	fadeImage:false
+});
+
+
+Available options:
+animate	(default - true) - turn on/off animation
+duration (default - 800) - duration of animation, msek
+resizeSync (default - false) - if set to true - the container is resized both vertically and horizontally at the same time
+enableZoom (default - false) - turn on/off zoom in/out
+fadeImage (default - true) - use fade effect for image (it is better to turn it off for large images)
+alias (default - 'lightgallery') - alias to use for the rel attribute (rel = 'lightgallery').
+showOverlay (default - true) - whether to show overlay,
+overlayColor (default - #000) - color of the overlay,
+overlayOpacity (default - .85) - opacity of the overlay,
+zoomStep (default - 0.2) - zoom coefficient,
+fullSize (default - false) - whether to show all the images in their real size by default
+minPadding (default - 15) - minimal distance between container and window (pixel)
+
+4) Add style.css from the skin/default directory:
+<link href="lightgallery/skins/default/style.css" type="text/css" media="screen" rel="stylesheet" />
+
+5) and last step - you need to mark all links that needs to be shown by LightGallery with rel="lightgallery" attribute.
+
+All images that needs to be grouped in the galleries must contain gallery name in square brackets, i.e. rel="lightgallery[flowers]".
+Also you can define your own alias instead of "lightgallery". For example, if you previously used LightBox plugin,
+you can easily switch to LightGallery by defining "lightbox" alias:
+lightgallery.init({
+	alias:"lightbox"
+});
+
+
+Examples:
+Single images
+<a href="001.jpg" rel="lightgallery" title="Leaves after rain"><img src="001_t.jpg" alt=""/></a>
+<a href="002.jpg" rel="lightgallery" title="Pink flowers">Pink flowers</a>
+
+Gallery
+<a href="001.jpg" rel="lightgallery[flowers]" title="Leaves after rain"><img src="001_t.jpg" alt="" /></a>
+<a href="002.jpg" rel="lightgallery[flowers]" title="Pink flowers"><img src="002_t.jpg" alt="" /></a>
+
+The value of the "title" attribute in the link will be shown in the title of the viewer.
+
+===========================
+      AJAX LOADING
+===========================
+If you asynchronously load additional images from server, call lightgallery.init() to update galleries.
+
+
+===========================
+       NAVIGATION
+===========================
+To move Prev/Next, zoom In/Out/FullSize/FitScreen use corresponding links or keyboard shortcuts:
+"b" - previous, "n" - next, "f" - show full size, "+" - zoom in, "-" - zoom out, "Esc" - exit;
+
+
+
+

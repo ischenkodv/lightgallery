@@ -30,7 +30,8 @@ var dy = false,
         fadeImage       : true,
         alias           : 'lightgallery',
         fullSize        : false,
-        minPadding      : 15        // minimal distance between container and window
+        minPadding      : 15,       // minimal distance between container and window
+        imageAttrib     : 'data-image'
     },
 
     // Language variables
@@ -134,14 +135,16 @@ var G = {
             len = imgs.length,
             body = document.body,
             image,
-            galleryName;
+            galleryName,
+            imgName;
         
         // filter images that match specified RegEx expression
         for (; i < len; i++) {
             image = imgs[i];
-            if (!image.rel) continue;
+            imgName = image.getAttribute(options.imageAttrib) || image.getAttribute('rel');
+            if (!imgName) continue;
 
-            matches = image.rel.match(regx);
+            matches = imgName.match(regx);
             if (matches) {
                 addEvent(image, 'click', G.showImage);
                 galleryName = matches[1];

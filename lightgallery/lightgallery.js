@@ -165,8 +165,10 @@ var G = {
         body.appendChild(overlay);
 
         
-        body.appendChild( container = createContainer() );
-        innerCont = container.lastChild;
+        if (!container) {
+            body.appendChild( container = createContainer() );
+            innerCont = container.lastChild;
+        }
 
         addEvent(
             body.attachEvent ? body : window,
@@ -218,6 +220,7 @@ var G = {
     close: function(){
         hideOverlay();
         css(container, {visibility: 'hidden', display: 'none'});
+        console.log(container);
 
         loaderImage.src = picture.src = '';
     },

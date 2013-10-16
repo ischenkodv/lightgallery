@@ -1,6 +1,12 @@
 
 LightGallery changelog:
 
+version 1.4 RC 1
+=================================================
+
+- Fixed bug when container created many times when init() called.
+- Added support for data-image attribute instead of rel for html document to validate correctly.
+
 version 1.4 beta 2
 =================================================
 1) Fixed options processing.

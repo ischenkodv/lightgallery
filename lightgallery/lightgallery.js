@@ -50,9 +50,6 @@ var dy = false,
     // Test if browser is Internet Explorer
     // TODO: remove browser detection.
     isIE = /MSIE ([^;]+)/.test(navigator.userAgent) && parseFloat(RegExp["$1"]),
-    //if (/MSIE ([^;]+)/.test(navigator.userAgent)) {
-        //isIE = parseFloat( RegExp["$1"] );
-    //}
 
     /* container and its elements */
     container,      // container which holds image;
@@ -118,13 +115,6 @@ var G = {
         opts && extend(options, opts);
 
         if (!readyBound) return bindReady();
-
-
-        // detect engine
-        //if (/MSIE ([^;]+)/.test(navigator.userAgent)) {
-            //isIE = parseFloat( RegExp["$1"] );
-        //}
-
 
         // get images
         images = [];
@@ -220,7 +210,6 @@ var G = {
     close: function(){
         hideOverlay();
         css(container, {visibility: 'hidden', display: 'none'});
-        console.log(container);
 
         loaderImage.src = picture.src = '';
     },

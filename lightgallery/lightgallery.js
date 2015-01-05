@@ -187,6 +187,10 @@ var G = {
             display: 'none',
             opacity: options.overlayOpacity
         });
+
+        /*addEvent(window, 'resize', function() {
+            setContPos(1);
+        });*/
     },
 
     /**
@@ -215,29 +219,29 @@ var G = {
     },
 
     zoomIn: function(){
-        G.Zoom(1 + options.zoomStep);
+        G.zoom(1 + options.zoomStep);
     },
 
     zoomOut: function(){
-        G.Zoom(1 - options.zoomStep);
+        G.zoom(1 - options.zoomStep);
     },
 
     zoomNormal: function() {
         if (this.$disabled) return;
 
-        G.Zoom(
+        G.zoom(
             picture.width == loaderImage.width && picture.height == loaderImage.height ? 0 : 1
         );
     },
 
-    Zoom : function(coef){
+    zoom : function(coef){
         hideContent();
         setContPos(coef);
     },
 
     /**
      * Shows image when user click it
-     * @param {Object} e - event object
+     * @param {Object} e Event object
      */
     showImage: function(e){
         var img = this,
@@ -375,7 +379,7 @@ function hideOverlay(){
 /**
  * Set container position
  * @param {number} vScale
- * @param {boolean} bIsOnload - show if function is called from whithin onload event
+ * @param {boolean} bIsOnload Show if function is called from whithin onload event
  */
 function setContPos(vScale, bIsOnload) {
     // define references and variables
@@ -823,7 +827,7 @@ var isFilterOpacity = typeof _('a').style.filter == STRING,
       };
   })();
 
-var animate = function(el, target, duration, after){
+var animate = function(el, target, duration, after) {
     if (options.animate) {
         duration = typeof duration == 'number' ? duration : 200;
     } else {

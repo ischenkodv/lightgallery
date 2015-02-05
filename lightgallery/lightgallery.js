@@ -162,7 +162,7 @@ var G = {
 
         addEvent(
             body.attachEvent ? body : window,
-            'keypress',
+            'keydown',
             keyPressHandler
         );
 
@@ -177,7 +177,10 @@ var G = {
 
         // define the difference between container and image size
         if (dy === false) {
+            var width = container.style.width;
+            container.style.width = '90%';
             dy = container.offsetHeight;
+            container.style.width = width;
             minContainerWidth = isIE ? 200 : container.offsetWidth;
         }
         
@@ -581,15 +584,26 @@ function keyPressHandler(e) {
     e = e || window.event;
     var code = e.keyCode ? e.keyCode : (e.which ? e.which : e.charCode),
         fnList = {
-            110 : G.next,       // n key
-            98  : G.prev,       // b key
-            102 : G.zoomNormal, // f key
-            43  : G.zoomIn,     // +
-            45  : G.zoomOut,    // -
-            27  : G.close       // Esc key
+            78 : G.next,       // n key
+            39 : G.next,       // right arrow
+            66 : G.prev,       // b key
+            37 : G.prev,       // left arrow
+            27 : G.close       // Esc key
         };
 
-    fnList[code] && fnList[code]();
+    if (options.enableZoom) {
+        fnList[70] = G.zoomNormal;  // f key
+        fnList[107] = G.zoomIn;     // +
+        fnList[109] = G.zoomOut;    // -
+        fnList[189] = G.zoomOut;    // dash (minus in the top row)
+    }
+
+    if (e.shiftKey && code == 187) {
+        // Zoom in when Shift+
+        G.zoomIn();
+    } else if (fnList[code]) {
+        fnList[code]();
+    }
 }
 
 /**

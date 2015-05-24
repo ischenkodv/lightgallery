@@ -61,7 +61,7 @@ var dy = false,
     zoomIn      = _(DIV, {id: 'LG_zoomIn', title: langVars.zoomIn}),    // Zoom In button
     zoomOut     = _(DIV, {id: 'LG_zoomOut', title: langVars.zoomOut}),    // Zoom Out button
     imgIndex    = _(DIV, {id: 'LG_imgIndex'}, langVars.image + ' 20 ' + langVars.of + ' 20 '), // index of images
-    loaderImage = _('img'),    // image loader
+    loaderImage,
 
     gallery,
     isOpen,         // if gallery open?
@@ -154,7 +154,8 @@ var G = {
         overlay.onclick = G.close;
         body.appendChild(overlay);
 
-        
+        loadImage();
+
         if (!container) {
             body.appendChild( container = createContainer() );
             innerCont = container.lastChild;
@@ -165,15 +166,6 @@ var G = {
             'keydown',
             keyPressHandler
         );
-
-        // create new Image element to load images
-        loaderImage.onload = function() {
-            hideLoadingIcon();
-
-            picture.src = loaderImage.src;
-            setContPos(options.fullSize ? 1 : 0, true);
-            preload();
-        };
 
         // define the difference between container and image size
         if (dy === false) {
@@ -218,7 +210,7 @@ var G = {
         hideOverlay();
         css(container, {visibility: 'hidden', display: 'none'});
 
-        loaderImage.src = picture.src = '';
+        picture.src = '';
     },
 
     zoomIn: function(){
@@ -274,7 +266,7 @@ var G = {
         hideContent();
         showLoadingIcon();
 
-        loaderImage.src = elem.href;
+        loadImage(elem.href);
 
         titleBar.innerHTML = elem.title;
         imgIndex.innerHTML = '';
@@ -299,7 +291,8 @@ var G = {
 
         bInProgress = 1;
         
-        loaderImage.src=gal[index].href;
+        loadImage(gal[index].href);
+
         titleBar.innerHTML = gal[index].title;
         imgIndex.innerHTML = langVars.image+' '+(index+1)+' '+langVars.of+' '+gal.length;
 
@@ -698,7 +691,7 @@ function getScrollXY() {
  * @param {String} tag - tag name
  * @param {Object} attr - attributes to set, ex: {'name':'someClass',value:'the value'}
  */
-function _(tag, attr){
+function _(tag, attr) {
 
     var elem = document.createElement(tag),
         i = 2,
@@ -730,6 +723,25 @@ function _(tag, attr){
     }
 
     return elem;
+}
+
+function loadImage(src) {
+    loaderImage = new Image();
+
+    // create new Image element to load images
+    loaderImage.onload = function() {
+        hideLoadingIcon();
+
+        picture.src = loaderImage.src;
+        setContPos(options.fullSize ? 1 : 0, true);
+        preload();
+    };
+
+    if (src) {
+        loaderImage.src = src;
+    }
+
+    return loaderImage;
 }
 
 /**

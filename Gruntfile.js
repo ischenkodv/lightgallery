@@ -1,15 +1,5 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        imagemin: {                          // Task
-            dynamic: {                         // Another target
-                files: [{
-                    expand: true,                  // Enable dynamic expansion
-                    cwd: 'lightgallery/',                   // Src matches are relative to this path
-                    src: ['**/*.{png,jpg,gif}'],   // Actual patterns to match
-                    dest: 'build/'                  // Destination path prefix
-                }]
-            }
-        },
         uglify: {
             build: {
                 src: 'lightgallery/lightgallery.js',
@@ -26,8 +16,7 @@ module.exports = function(grunt) {
         'default',
         [
             //'jshint',
-            'uglify',
-            'imagemin'
+            'uglify'
         ]
     );
 };

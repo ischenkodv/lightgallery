@@ -1,4 +1,4 @@
-#LG_container{
+#LG_container {
     border: 1px solid #aaa;
     visibility:hidden;
     position:absolute;
@@ -7,7 +7,12 @@
     background-color:#fff;
     background-position:center;
     background-repeat:no-repeat;
-    font: normal 12px verdana, arial, sans-serif
+    font: normal 12px verdana, arial, sans-serif;
+    box-sizing: content-box;
+}
+#LG_container div,
+#LG_container img {
+    box-sizing: content-box;
 }
 #LG_loading {
     background: url(ico-loading.gif) no-repeat center;
@@ -19,7 +24,7 @@
     left: 50%;
     margin: -20px 0 0 -20px;
 }
-#LG_panel {padding: 1px 0; clear:both}
+#LG_panel {padding: 1px 0; clear:both; box-sizing: content-box;}
 
 #LG_prevLink,#LG_nextLink{
     width:20px;

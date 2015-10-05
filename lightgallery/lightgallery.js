@@ -4,7 +4,7 @@
 * Website: http://code.google.com/p/lightgallery
 * Freely distributable under MIT-style license
 */
-var lightgallery = (function(window, document){
+var lightgallery = (function(window, document) {
 
 // local variables
 var dy = false,
@@ -158,7 +158,7 @@ var G = {
 
         if (!container) {
             body.appendChild( container = createContainer() );
-            innerCont = container.lastChild;
+            //innerCont = container.lastChild;
         }
 
         addEvent(
@@ -493,7 +493,7 @@ function setContPos(vScale, bIsOnload) {
  * Show container content
  */
 function showContent() {
-    innerCont.style.display = 'block';
+    //innerCont.style.display = 'block';
 
     css(picture, {opacity:0});
     animate(picture, {opacity: 1}, options.fadeImage ? 400 : 0, function(){ bInProgress = 0; });
@@ -503,7 +503,7 @@ function showContent() {
  * Hide container content
  */
 function hideContent() {
-    innerCont.style.display = 'none';
+    //innerCont.style.display = 'none';
 }
 
 function showLoadingIcon() {
@@ -518,55 +518,84 @@ function hideLoadingIcon() {
  * Create container
  */
 function createContainer() {
-    if (!options.enableZoom) {
-        zoomIn = zoomOut = '';
-    }
+    var container = document.createElement('div');
+    container.id = 'lg-container';
 
-    var container = _(DIV, {id:'LG_container'},
-        oThrobber,
-        _(DIV, {id:'LG_innerCont'},
-            _(DIV, {id:'LG_panel'},
-                zoomIn, zoomOut, fullSizeBtn, imgIndex, _(DIV,{id:'LG_closeBtn',title:langVars.close}), _(DIV, {style: 'clear:both'})
-            ),
-            picture,
-            titleBar,
-            prevBtn, nextBtn
-        )
-    );
+    //if (options.enableZoom) {
+    // show-hide zoom buttons by setting class name on container element.
+    //}
 
 
-    var navHandler = function(event){
-        event.cancelBubble = true;
-        event.stopPropagation && event.stopPropagation();
+    container.innerHTML = '<div class="lg-wrapper">' +
+        '<div id="lg-header">' +
+            '<i id="lg-zoom-in"></i>' +
+            '<i id="lg-zoom-out"></i>' +
+            '<i id="lg-full-size"></i>' +
+            '<span id="lg-img-index"></span>' +
+            '<button id="lg-btn-close"><i class="lg-close-icon"></i></button>' +
+        '</div>' +
+
+        '<div id="lg-body">' +
+            '<img id="lg-picture">' +
+            '<div id="lg-btn-prev"></div>' +
+            '<div id="lg-btn-next"></div>' +
+        '</div>' +
+
+        '<div id="lg-footer"></div>' +
+    '</div>'; // End of wrapper
+
+    console.log('container', container.innerHTML);
+    return container;
+
+    //if (!options.enableZoom) {
+        //zoomIn = zoomOut = '';
+    //}
+
+    //var container = _(DIV, {id:'LG_container'},
+        //oThrobber,
+        //_(DIV, {id:'LG_innerCont'},
+            //_(DIV, {id:'LG_panel'},
+                //zoomIn, zoomOut, fullSizeBtn, imgIndex, _(DIV,{id:'LG_closeBtn',title:langVars.close}), _(DIV, {style: 'clear:both'})
+            //),
+            //picture,
+            //titleBar,
+            //prevBtn, nextBtn
+        //)
+    //);
+
+
+    //var navHandler = function(event){
+        //event.cancelBubble = true;
+        //event.stopPropagation && event.stopPropagation();
         
-        var target = event.target || event.srcElement;
+        //var target = event.target || event.srcElement;
         
-        if (event.type == 'click') {
-            var fnList = {
-                LG_closeBtn: G.close,
-                LG_zoomNormal: G.zoomNormal,
-                LG_fitScreen: G.zoomNormal,
-                LG_zoomIn: G.zoomIn,
-                LG_zoomOut: G.zoomOut,
-                LG_nextLink: G.next,
-                LG_prevLink: G.prev
-            };
+        //if (event.type == 'click') {
+            //var fnList = {
+                //LG_closeBtn: G.close,
+                //LG_zoomNormal: G.zoomNormal,
+                //LG_fitScreen: G.zoomNormal,
+                //LG_zoomIn: G.zoomIn,
+                //LG_zoomOut: G.zoomOut,
+                //LG_nextLink: G.next,
+                //LG_prevLink: G.prev
+            //};
 
-            if (target.id in fnList) {
-                fnList[target.id].call(G);
-            }
+            //if (target.id in fnList) {
+                //fnList[target.id].call(G);
+            //}
             
-        } else if (target.id == 'LG_nextLink' || target.id == 'LG_prevLink') {
-            animate(
-                target,
-                {opacity: event.type == 'mouseout' ? 0 : 1}
-            );
-        }
-    };
+        //} else if (target.id == 'LG_nextLink' || target.id == 'LG_prevLink') {
+            //animate(
+                //target,
+                //{opacity: event.type == 'mouseout' ? 0 : 1}
+            //);
+        //}
+    //};
     
-    addEvent(container, 'click', navHandler);
-    addEvent(container, 'mouseover', navHandler);
-    addEvent(container, 'mouseout', navHandler);
+    //addEvent(container, 'click', navHandler);
+    //addEvent(container, 'mouseover', navHandler);
+    //addEvent(container, 'mouseout', navHandler);
 
     return container;
 }

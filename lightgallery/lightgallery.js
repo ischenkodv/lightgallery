@@ -31,7 +31,8 @@ var dy = false,
         alias           : 'lightgallery',
         fullSize        : false,
         minPadding      : 15,       // minimal distance between container and window
-        imageAttrib     : 'data-image'
+        imageAttrib     : 'data-image',
+        initialZoom     : null
     },
 
     // Language variables
@@ -191,7 +192,7 @@ var G = {
     /**
      * Open (show) gallery
      */
-    open : function(){
+    open: function() {
         if (isOpen) return;
 
         showOverlay();
@@ -229,7 +230,7 @@ var G = {
         );
     },
 
-    zoom : function(coef){
+    zoom: function(coef){
         hideContent();
         setContPos(coef);
     },
@@ -414,7 +415,7 @@ function setContPos(vScale, bIsOnload) {
             h = (picture.height = dLoadHeight) + dy;
         }
 
-    } else if (vScale==1) {
+    } else if (vScale == 1) {
         // show image in real size
         w = picture.width = dLoadWidth;
         h = (picture.height = dLoadHeight) + dy;
@@ -733,7 +734,12 @@ function loadImage(src) {
         hideLoadingIcon();
 
         picture.src = loaderImage.src;
-        setContPos(options.fullSize ? 1 : 0, true);
+        picture.width = loaderImage.width;
+        picture.height = loaderImage.height;
+
+        var initialZoom = options.initialZoom !== null ? options.initialZoom : 0;
+
+        setContPos(options.fullSize ? 1 : initialZoom, true);
         preload();
     };
 

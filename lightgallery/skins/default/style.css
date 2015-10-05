@@ -1,4 +1,4 @@
-#lg-container {
+#LG_container {
     border: 1px solid #aaa;
     visibility:hidden;
     position:absolute;
@@ -10,14 +10,10 @@
     font: normal 12px verdana, arial, sans-serif;
     box-sizing: content-box;
 }
-
-#lg-container * {
-    box-sizing: border-box;
+#LG_container div,
+#LG_container img {
+    box-sizing: content-box;
 }
-/*#LG_container div,*/
-/*#LG_container img {*/
-    /*box-sizing: content-box;*/
-/*}*/
 #LG_loading {
     background: url(ico-loading.gif) no-repeat center;
     display: none;

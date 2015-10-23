@@ -1,0 +1,9 @@
+{
+    "framework": "mocha",
+    "src_files": [
+        "node_modules/sinon/pkg/sinon.js",
+        "node_modules/chai/chai.js",
+        "src/**/*.js",
+        "tests/**/*.js"
+    ]
+}

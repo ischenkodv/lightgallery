@@ -71,6 +71,27 @@ lightgallery = (function() {
          */
         option: function(key) {
             return key in options ? options[key] : undefined;
+        },
+
+        createGallery: function(galleryName, images, options) {
+            if (typeof galleryName !== 'string') {
+                throw new Error('Gallery name is required');
+            }
+        },
+
+        loadPicture: function(image, callback, error) {
+            var picture = document.createElement('picture');
+            var img = document.createElement('img');
+            img.src = image.src;
+
+            picture.appendChild(img);
+
+            img.onload = function() {
+                callback(img.src, img.width, img.height);
+            }
+            img.onerror = function() {
+                error();
+            }
         }
     };
 

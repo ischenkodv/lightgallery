@@ -1,4 +1,5 @@
 var expect = chai.expect;
+var assert = chai.assert;
 
 describe('LightGallery', function() {
     
@@ -57,4 +58,71 @@ describe('LightGallery', function() {
         });
     });
 
+    describe('Galleries management', function() {
+
+        it('can create new gallery', function() {
+
+            var images = [
+                {
+                    src: '/path/to/image1.png'
+                },
+                {
+                    src: '/path/to/image2.png'
+                }
+            ];
+
+            var options = {
+                showOverlay  : false,
+                overlayColor : '#555'
+            };
+
+            lightgallery.createGallery('gallery name', images, options);
+
+        });
+    });
+
+    describe('Picture loading', function() {
+
+        it('can load image using picture element', function(done) {
+            var src = 'tests/images/320px-opera_by_night.jpg';
+            var expectedWidth = 320;
+            var expectedHeight = 100;
+
+            var success = function(imgSrc, width, height) {
+                expect(imgSrc).to.contain(src);
+                expect(width).to.equal(expectedWidth);
+                expect(height).to.equal(expectedHeight);
+                done();
+            }
+
+            var error = function() {
+                assert.fail(new Error('my message'));
+                done();
+            }
+
+            lightgallery.loadPicture({
+                src: src
+            }, success, error);
+
+        });
+
+        it('calls error callback if image failed to load', function(done) {
+            var src = 'i-do-no-exists.jpg';
+
+            var success = function(imgSrc, width, height) {
+                assert.fail(new Error('my message'));
+                done();
+            }
+
+            var error = function(imgSrc) {
+                expect(true).to.be.true;
+                done();
+            }
+
+            lightgallery.loadPicture({
+                src: src
+            }, success, error);
+        });
+
+    });
 });

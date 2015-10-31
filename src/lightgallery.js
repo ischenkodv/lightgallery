@@ -1,4 +1,4 @@
-lightgallery = (function() {
+lightgallery = (function(window, document) {
 
     /**
      * Global options.
@@ -81,14 +81,38 @@ lightgallery = (function() {
 
         loadPicture: function(image, callback, error) {
             var picture = document.createElement('picture');
+
             var img = document.createElement('img');
             img.src = image.src;
+
+            var allowedSourceAttributes = {
+                srcset: true,
+                media: true,
+                type: true
+            };
+
+            if (image.sources instanceof Array) {
+
+                for (var i = 0, len = image.sources.length; i < len; i++) {
+                    var sourceElem = document.createElement('source');
+                    var source = image.sources[i];
+
+                    for (var attr in source) {
+                        if (allowedSourceAttributes[attr]) {
+                            sourceElem.setAttribute(attr, source[attr]);
+                        }
+                    }
+
+                    picture.appendChild(sourceElem);
+                }
+            }
 
             picture.appendChild(img);
 
             img.onload = function() {
-                callback(img.src, img.width, img.height);
+                callback(img.currentSrc || img.src, img.width, img.height);
             }
+
             img.onerror = function() {
                 error();
             }
@@ -96,4 +120,4 @@ lightgallery = (function() {
     };
 
 
-})();
+})(window, document);

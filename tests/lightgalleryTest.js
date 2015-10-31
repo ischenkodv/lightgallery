@@ -124,5 +124,35 @@ describe('LightGallery', function() {
             }, success, error);
         });
 
+        it('loads image specified in source if it match media query', function(done) {
+
+            var expectedSrc = 'tests/images/640px-opera_by_night.jpg';
+            var expectedWidth = 640;
+            var expectedHeight = 200;
+
+            var success = function(imgSrc, width, height) {
+                expect(imgSrc).to.contain(expectedSrc);
+                expect(width).to.equal(expectedWidth);
+                expect(height).to.equal(expectedHeight);
+                done();
+            }
+
+            var error = function() {
+                console.log('arguments', arguments);
+                assert.fail(new Error('my message'));
+                done();
+            }
+
+            lightgallery.loadPicture({
+                src: 'tests/images/320px-opera_by_night.jpg',
+                sources: [
+                    {
+                        media: '(min-width: 20px)',
+                        srcset: expectedSrc
+                    }
+                ]
+            }, success, error);
+
+        });
     });
 });
